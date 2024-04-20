@@ -18,7 +18,7 @@ const handleFileClick = (e) => {
  */
 const searchLesson = (e) => {
     const searchValue = e.target.value;
-    const listLessonFound = lessons.filter(lesson => lesson.label.toLowerCase().includes(searchValue.toLowerCase()));
+    const listLessonFound = MOCK_DATA.filter(lesson => lesson.label.toLowerCase().includes(searchValue.toLowerCase()));
     document.getElementById('list-lesson').innerHTML = getListLesson(listLessonFound);
 }
 
