@@ -6,7 +6,6 @@ import { CLOUDINARY_PRESET, CLOUDINARY_URL, MOCK_DATA } from "../constant/config
  * @param {*} e: event object
  */
 const handleFileClick = (e) => {
-    console.log(e.target.id);
     const lessonId = e.target.id;
     document.getElementById('view-lesson').src = `./view/lessons/${lessonId}.html`;
 }
@@ -67,7 +66,6 @@ const changeAvatar = (e) => {
     })
         .then(response => response.json())
         .then(data => {
-            console.log('Success:', data);
             document.getElementById('avatar-img').src = data.secure_url;
             localStorage.setItem('avatar', data.secure_url);
         })
