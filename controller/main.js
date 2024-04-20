@@ -1,19 +1,4 @@
-import { CLOUDINARY_PRESET, CLOUDINARY_URL } from "../constant/config.js";
-
-const lessons = [
-    {
-        id: 'lesson16',
-        label: 'Lesson 16'
-    },
-    {
-        id: 'lesson17',
-        label: 'Lesson 17'
-    },
-    {
-        id: 'lesson18',
-        label: 'Lesson 18'
-    }
-];
+import { CLOUDINARY_PRESET, CLOUDINARY_URL, MOCK_DATA } from "../constant/config.js";
 
 /**
  * This function to handle click event on lesson item to change the view
@@ -23,7 +8,7 @@ const lessons = [
 const handleFileClick = (e) => {
     console.log(e.target.id);
     const lessonId = e.target.id;
-    document.getElementById('view-lesson').src = `./lessons/${lessonId}.html`;
+    document.getElementById('view-lesson').src = `./view/lessons/${lessonId}.html`;
 }
 
 /**
@@ -97,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (avatar) {
         document.getElementById('avatar-img').src = avatar;
     }
-    document.getElementById('list-lesson').innerHTML = getListLesson(lessons);
+    document.getElementById('list-lesson').innerHTML = getListLesson(MOCK_DATA);
 });
 
 
