@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 style="border-bottom: 1px solid black;">lesson 16</h1>
+    <div id="main-content" style="display: flex; flex-direction: column; gap: 20px;">
+        <div>
+            <h3>Bài 1: Hoán vị 2 số</h3>
+            <label for="num1">Number 1</label>
+            <input type="number" id="num1" name="num1">
+            <label for="num2">Number 2</label>
+            <input type="number" id="num2" name="num2">
+            <button type="button" onclick="swap()">Swap</button>
+        </div>
+
+        <div>
+            <h3>Bài 2: Thực hiện phép toán</h3>
+            <div
+                style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; width: 150px; padding: 20px; border: 1px solid black; margin: 10px 0;">
+                <span style="font-weight: bold;">
+                    S = 10 + 20 + 5^10 / 2
+                </span>
+            </div>
+            <button type="button" onclick="calculateFormula()">Calculate</button>
+        </div>
+
+        <div>
+            <h3>Bài 3: Tìm số lớn nhất</h3>
+            <label for="_num1">Number 1</label>
+            <input type="number" id="_num1" name="num1">
+
+            <label for="_num2">Number 2</label>
+            <input type="number" id="_num2" name="num2">
+
+            <label for="_num3">Number 3</label>
+            <input type="number" id="_num3" name="num2">
+            <button type="button" onclick="findMaxNumber()">Find max number</button>
+        </div>
+
+        <div>
+            <h3>Bài 4: Kiểm tra số cùng dấu</h3>
+            <label for="num1-check">Number 1</label>
+            <input type="number" id="num1-check" name="num1">
+            <label for="num2-check">Number 2</label>
+            <input type="number" id="num2-check" name="num2">
+            <button type="button" onclick="checkSign()">Test</button>
+        </div>
+
+        <div>
+            <h3>Bài 5: Sắp xếp 3 số</h3>
+            <label for="_num1-sort">Number 1</label>
+            <input type="number" id="_num1-sort" name="num1">
+
+            <label for="_num2-sort">Number 2</label>
+            <input type="number" id="_num2-sort" name="num2">
+
+            <label for="_num3-sort">Number 3</label>
+            <input type="number" id="_num3-sort" name="num2">
+            <button type="button" onclick="sortASC()">Sort ASC</button>
+        </div>
+    </div>
+
+    <script src="../../controller/lessons/lesson16.js"></script>
+</body>
+
+</html>
