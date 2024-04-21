@@ -46,11 +46,10 @@ const checkSign = () => {
         return;
     }
 
-    if (number1 < 0 && number2 < 0 || number1 > 0 && number2 > 0) {
-        alert('Cùng dấu');
-    } else {
-        alert('Khác dấu');
-    }
+    let label = "";
+
+    label = number1 * number2 > 0 ? 'Cùng dấu' : 'Khác dấu';
+    alert(label);
 }
 
 const sortASC = () => {
