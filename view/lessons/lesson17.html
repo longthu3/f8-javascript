@@ -1,11 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Liên kết tới tệp CSS của PrismJS -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/themes/prism.css" rel="stylesheet" />
+
+    <!-- Liên kết tới tệp JavaScript của PrismJS -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/prism.js"></script>
+
+    <style>
+        #chessboard {
+            display: table;
+            border: 2px solid black;
+        }
+
+        .row {
+            display: table-row;
+        }
+
+        .cell {
+            display: table-cell;
+            width: 50px;
+            height: 50px;
+        }
+
+        .black {
+            background-color: black;
+        }
+
+        .white {
+            background-color: white;
+        }
+
+        #numeric-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .numeric-row {
+            border: 1px solid black;
+            padding: 10px 0;
+            border-radius: 10px;
+        }
+
+        .numeric-row span {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            text-align: left;
+        }
+    </style>
 </head>
+
 <body>
-    <h3>Lesson 17</h3>
+    <h1 style="border-bottom: 1px solid black;">lesson 17</h1>
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div>
+            <h3>Bài 1: Tính tiền taxi</h3>
+            <label for="taxi-km">Nhập số km để tính tiền taxi</label>
+            <input type="number" name="km" id="taxi-km">
+            <button onclick="showFee()" type="button">Tính</button>
+            <button data-target="code1" onclick="showCode(this)" type="button">Show code</button>
+            <ul>
+                <li>Số km ≤ 1 giá 15000đ</li>
+                <li>1 < số km ≤ 5 giá 13500đ</li>
+                <li>Số km > 5 giá 11000đ</li>
+                <li>Nếu số km > 120 km sẽ được giảm 10% trên tổng số tiền</li>
+            </ul>
+
+            <pre id="code1" style="display: none;">
+                <code class="language-javascript">
+                    const showFee = () => {
+                        const km = document.getElementById('taxi-km').value;
+                        if (!km) {
+                            alert('Please enter the distance in km');
+                            return;
+                        }
+                        let resultFee = 0;
+                        if (km <= 1) {
+                            resultFee += 15000;
+                        } else if (km > 1 && km <= 5) {
+                            resultFee += 15000 + (km - 1) * 13500;
+                        } else if (km > 5 && km <= 120)  {
+                            resultFee += 15000 + 4 * 13500 + (km - 5) * 11000;
+                        } else {
+                            const discountFee = (15000 + 4 * 13500 + (km - 5) * 11000) * 0.1;
+                            resultFee += (15000 + 4 * 13500 + (km - 5) * 11000) - discountFee;
+                        }
+                        //format to vietnam dong
+                        resultFee = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(resultFee);
+                        alert(`The fee is: ${resultFee}`);
+                    }
+                </code>
+            </pre>
+        </div>
+
+        <div>
+            <h3>Bài 2: Tính tiền điện</h3>
+            <label for="electric-kwh">Nhập số kwh để tính tiền điện</label>
+            <input type="number" name="kwh" id="electric-kwh">
+            <button onclick="calculateElectricCost()" type="button">Tính</button>
+            <button data-target="code2" onclick="showCode(this)" type="button">Show code</button>
+
+            <ul>
+                <li>kwh 0 - 50 giá 1.678</li>
+                <li>kwh 51 - 100 giá 1.734</li>
+                <li>kwh 101 - 200 giá 2.014</li>
+                <li>kwh 201 - 300 giá 2.536</li>
+                <li>kwh 301 - 400 giá 2.834</li>
+                <li>kwh 401 trở lên giá 2.927</li>
+            </ul>
+
+            <pre id="code2" style="display: none;">
+                <code class="language-javascript">
+                    const calculateElectricCost = () => {
+                        const kwh = document.getElementById('electric-kwh').value;
+                    
+                        if (!kwh) {
+                            alert('Please enter the kwh');
+                            return;
+                        }
+                    
+                        let resultCost = 0;
+                    
+                        if (kwh > 0 && kwh <= 50) {
+                            resultCost += kwh * 1678;
+                        } else if (kwh > 50 && kwh <= 100) {
+                            resultCost += kwh * 1734;
+                        } else if (kwh > 100 && kwh <= 200) {
+                            resultCost += kwh * 2014;
+                        } else if (kwh > 200 && kwh <= 300) {
+                            resultCost += kwh * 2536;
+                        } else if (kwh > 300 && kwh <= 400) {
+                            resultCost += kwh * 2834;
+                        } else {
+                            resultCost += kwh * 2927;
+                        }
+                        resultCost = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(resultCost);
+                        alert(`The cost is: ${resultCost}`);
+                    }
+                </code>
+            </pre>
+        </div>
+
+        <div>
+            <h3>Bài 3: Tính giá trị biểu thức</h3>
+            <div
+                style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; width: 250px; padding: 20px; border: 1px solid black; margin: 10px 0;">
+                <span style="font-weight: bold;">
+                    S= 1*2 + 2*3 + 3*4 + ... + n*(n+1)
+                </span>
+            </div>
+            <label for="n">Nhập n để tính giá trị biểu thức</label>
+            <input type="number" name="n" id="n">
+            <button type="button" onclick="calculateFormula()">Tính</button>
+            <button data-target="code3" type="button" onclick="showCode(this)">Show code</button>
+
+            <pre id="code3" style="display: none;">
+                <code class="language-javascript">
+                    const calculateFormula = () => {
+                        const n = document.getElementById('n').value;
+                        if (!n) {
+                            alert('Please enter the number n');
+                            return;
+                        }
+                    
+                        let result = 0;
+                    
+                        for (let i = 1; i <= n; i++) {
+                            result += i * (i + 1);
+                        }
+                    
+                        alert(`The result is: ${result}`);
+                    }
+                </code>
+            </pre>
+        </div>
+
+        <div>
+            <h3>Bài 4: Viết hàm kiểm tra số nguyên tố</h3>
+            <label for="prime-number">Nhập số để kiểm tra số nguyên tố</label>
+            <input type="number" name="prime-number" id="prime-number">
+            <button type="button" onclick="checkPrimeNumber()">Kiểm tra</button>
+            <button data-target="code4" type="button" onclick="showCode(this)">Show code</button>
+
+            <pre id="code4" style="display: none;">
+                <code class="language-javascript">
+                    const checkPrimeNumber = () => {
+                        const number = document.getElementById('prime-number').value;
+                        if (!number || number < 1) {
+                            alert('Please enter the positive number');
+                            return;
+                        }
+                    
+                        if (isPrimeNumber(number)) {
+                            alert(`${number} is a prime number`);
+                        } else {
+                            alert(`${number} is not a prime number`);
+                        }
+                    }
+                    
+                    /**
+                     * The function to check the number is prime number or not
+                     * 
+                     * @param {*} number the value of number
+                     * @returns true if the number is prime number, otherwise return false
+                     */
+                    const isPrimeNumber = (number) => {
+                        if (number < 2) {
+                            return false;
+                        }
+                    
+                        for (let i = 2; i <= Math.sqrt(number); i++) {
+                            if (number % i === 0) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                </code>
+            </pre>
+        </div>
+
+        <div>
+            <h3>Bài 5: Vẽ tam giác số</h3>
+            <div
+                style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; width: 200px; padding: 20px; border: 1px solid black; margin: 10px 0;">
+                <span id="triangle-show" style="font-weight: bold;">
+                    Nhập số n để vẽ tam giác số
+                </span>
+            </div>
+            <label for="row-triangle-draw">Nhập n để vẽ tam giác</label>
+            <input type="number" name="row-triangle-draw" id="row-triangle-draw">
+            <button type="button" onclick="drawTriangle()">Vẽ</button>
+            <button data-target="code5" type="button" onclick="showCode(this)">Show code</button>
+
+            <pre id="code5" style="display: none;">
+                <code class="language-javascript">
+                    const drawTriangle = () => {
+                        const row = document.getElementById('row-triangle-draw').value;
+                    
+                        if (!row || row < 1) {
+                            alert('Please enter the positive number to draw the triangle');
+                            return;
+                        }
+                    
+                        let index = 0;
+                        let result = '';
+                        for (let i = 1; i <= row; ++i) {
+                            for (let j = 1; j <= i; ++j) {
+                                result += ++index + ' ';
+                            }
+                            result += '</br>';
+                        }
+                        document.getElementById('triangle-show').innerHTML = result;
+                    }
+                </code>
+            </pre>
+        </div>
+
+        <div>
+            <h3>Bài 6: Vẽ bàn cờ vua</h3>
+
+            <div id="chessboard">
+
+            </div>
+            <button data-target="code6" type="button" style="margin-top: 20px;" onclick="showCode(this)">Show
+                code</button>
+
+            <pre id="code6" style="display: none;">
+                <code class="language-javascript">
+                    function drawChessboard() {
+                        const board = document.getElementById('chessboard');
+                        for (let i = 0; i < 8; i++) {
+                            const row = document.createElement('div');
+                            row.className = 'row';
+                            for (let j = 0; j < 8; j++) {
+                                const cell = document.createElement('div');
+                                cell.className = 'cell';
+                                if ((i + j) % 2 === 0) {
+                                    cell.classList.add('white');
+                                } else {
+                                    cell.classList.add('black');
+                                }
+                                row.appendChild(cell);
+                            }
+                            board.appendChild(row);
+                        }
+                    }
+                    
+                    drawChessboard();
+                </code>
+            </pre>
+        </div>
+
+        <div>
+            <h3>Bài 7: Vẽ bảng cửu chương</h3>
+
+            <div id="numeric-board">
+
+            </div>
+            <button data-target="code7" type="button" style="margin-top: 20px;" onclick="showCode(this)">Show
+                code</button>
+
+            <pre id="code7" style="display: none;">
+                <code class="language-javascript">
+                    const drawNumericBoard = () => {
+                        const board = document.getElementById('numeric-board');
+                        for (let i = 1; i <= 10; ++i) {
+                            let result = '<span>';
+                            const elm = document.createElement('div');
+                            elm.className = 'numeric-row';
+                            for (let j = 1; j <= 10; ++j) {
+                                result += `${i} x ${j} = ${i * j}</br>`;
+                            }
+                            elm.innerHTML = result + '</span>';
+                            board.appendChild(elm);
+                        }
+                    }
+                    
+                    drawNumericBoard();
+                </code>
+            </pre>
+        </div>
+
+        <div>
+            <h3>Bài 8: Tính giá trị biểu thức không dùng vòng lặp</h3>
+            <div
+                style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; width: 250px; padding: 20px; border: 1px solid black; margin: 10px 0;">
+                <span style="font-weight: bold;">
+                    S = 1 + 1/2 + 1/3 + 1/4 + 1/5 +…+1/N
+                </span>
+            </div>
+            <label for="n-without-loop">Nhập n để tính giá trị biểu thức</label>
+            <input type="number" name="n-without-loop" id="n-without-loop">
+            <button type="button" onclick="calculateFormulaWithOutLoop()">Tính</button>
+            <button data-target="code8" type="button" onclick="showCode(this)">Show code</button>
+
+            <pre id="code8" style="display: none;">
+                <code class="language-javascript">
+                    const calculateFormulaWithOutLoop = () => {
+                        const number = document.getElementById('n-without-loop').value;
+                        if (!number || number <= 1) {
+                            alert('Please enter the positive number and greater than 1');
+                            return;
+                        }
+                        alert(`The result is: ${calc(number).toFixed(2)}`);
+                    }
+                    
+                    const calc = (n) => {
+                        return n === 1 ? 1 : 1 / n + calc(n - 1);
+                    }
+                </code>
+            </pre>
+        </div>
+    </div>
+
+    <script src="../../controller/lessons/lesson17.js"></script>
+    <script src="../../controller/lessons/showCodeController.js"></script>
 </body>
+
 </html>
