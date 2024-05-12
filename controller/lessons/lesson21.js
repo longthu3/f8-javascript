@@ -8,7 +8,12 @@ const numbers = [5, 1, 9, 8, 10];
 const element = 4;
 
 const insertElement = (arr, element, index) => {
+    
     const length = arr.length;
+
+    if (index < 0 || index > length) {
+        return 'Index is out of range';
+    }
     for (let i = length; i > index; --i) {
         arr[i] = arr[i - 1];
     }
@@ -35,4 +40,4 @@ const bubbleSort = (arr) => {
 const sortedNumber = bubbleSort(numbers);
 
 console.log(sortedNumber);
-console.log(insertElement(sortedNumber, 22, 2));
+console.log(insertElement(sortedNumber, 22, -2));
