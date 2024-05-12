@@ -10,8 +10,8 @@ const MOCK_DATA = [
         label: 'Lesson 17'
     },
     {
-        id: 'lesson18',
-        label: 'Lesson 18'
+        id: 'lesson21',
+        label: 'Lesson 21'
     }
 ];
 

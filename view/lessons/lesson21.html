@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Liên kết tới tệp CSS của PrismJS -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/themes/prism.css" rel="stylesheet" />
+
+    <!-- Liên kết tới tệp JavaScript của PrismJS -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/prism.js"></script>
+
+</head>
+
+<body>
+    <h3>Lesson 21</h3>
+    <div>
+        <h3>Bài 1: Cho trước 1 mảng số nguyên, yêu cầu tìm số lớn nhất, nhỏ nhất trong mảng và vị trí</h3>
+        <pre>
+        <code class="language-javascript">
+            const globalArray = [1, 2, -1, 3, 4, 5];
+
+            const findBasedAction = (arr, action) => {
+                let result = arr[0];
+                let index = 0;
+                const length = arr.length;
+                for (let i = 0; i < length; ++i) {
+                    switch (action) {
+                        case "MAX":
+                            if (arr[i] > result) {
+                                result = arr[i];
+                                index = i;
+                            }
+                            break;
+                        case "MIN":
+                            if (arr[i] < result) {
+                                result = arr[i];
+                                index = i;
+                            }
+                            break;
+                    }
+                }
+                return [result, index];
+            }
+
+            console.log(findBasedAction(globalArray, "MIN")); //-1 and index is 2
+            console.log(findBasedAction(globalArray, "MAX")); // 5 and index is 5
+        </code>
+    </pre>
+    </div>
+
+    <div>
+        <h3>Bài 2: Cho trước 1 mảng số nguyên, tính trung bình các số nguyên tố trong mảng. Nếu trong mảng không có số
+            nguyên tố thì hiển thị “Không có số nguyên tố”</h3>
+        <pre>
+        <code class="language-javascript">
+            const globalArr = [4, 4, 8, 4, 10];
+
+            const getArr = () => {
+                let result = [];
+
+                globalArr.forEach((item) => {
+                    if (isPrimeNumber(item)) {
+                        result.push(item);
+                    }
+                });
+                return result;
+            }
+
+            const calcAvg = (arr) => {
+
+                if (arr.length === 0) {
+                    return "Không có số nguyên tố";
+                }
+
+                let sum = 0;
+
+                arr.forEach((item) => {
+                    sum += item;
+                });
+
+                return sum / arr.length;
+            }
+
+
+            const isPrimeNumber = (num) => {
+                if (num < 2) {
+                    return false;
+                }
+
+
+                for (let i = 2; i <= Math.sqrt(num); i++) {
+                    if (num % i === 0) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            console.log(calcAvg(getArr()));
+        </code>
+    </pre>
+    </div>
+
+    <div>
+        <h3>Bài 3: Cho trước 1 mảng bất kỳ, nếu trong mảng có các phần tử trùng nhau thì chỉ giữa lại 1 (Gọi là lọc
+            trùng). In ra mảng sau khi đã xử lý</h3>
+        <pre>
+        <code class="language-javascript">
+            const globalArr = [4, 4, 8, 4, 10];
+
+            const filterDuplicateElements = (arr) => {
+                let result = [];
+                arr.forEach((item) => {
+                    if (!includes(result, item)) {
+                        result.push(item);
+                    }
+                });
+                return result;
+            }
+
+            const includes = (arr, item) => {
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i] === item) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            console.log(filterDuplicateElements(globalArr));
+        </code>
+    </pre>
+    </div>
+
+</body>
+
+</html>
